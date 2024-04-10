@@ -1,0 +1,11 @@
+.home {
+  font-size: xx-large;
+  display: flex;
+  justify-content: center;
+  margin-top: 15%;
+}
+.nav-dash {
+  font-size: xx-large;
+  display: flex;
+  justify-content: center;
+}

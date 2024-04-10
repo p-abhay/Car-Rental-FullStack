@@ -1,0 +1,81 @@
+<form #form="ngForm" (ngSubmit)="onSubmit()">
+  <h2 class="text-center">{{ isEditing ? "Update Car" : "Add Car" }}</h2>
+  <div class="row justify-content-center">
+    <div class="col-md-3">
+      <!-- Maker input -->
+      <div class="form-outline mb-4">
+        <label class="form-label custom-label" for="maker">Maker</label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="car.maker"
+          name="maker"
+          placeholder="Enter the Car Maker"
+          required
+        />
+      </div>
+
+      <!-- Model input -->
+      <div class="form-outline mb-4">
+        <label class="form-label custom-label" for="model">Model</label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="car.model"
+          name="model"
+          placeholder="Enter the Car Model"
+          required
+        />
+      </div>
+
+      <!-- Availability Status input -->
+      <div class="form-check mb-4">
+        <input
+          type="checkbox"
+          class="form-check-input"
+          [(ngModel)]="car.availabilityStatus"
+          name="availabilityStatus"
+          id="availabilityStatus"
+        />
+        <label class="form-check-label custom-label" for="availabilityStatus"
+          >Available</label
+        >
+      </div>
+
+      <!-- Rental Price input -->
+      <div class="form-outline mb-4">
+        <label class="form-label custom-label" for="rentalPrice"
+          >Rental Price</label
+        >
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)]="car.rentalPrice"
+          name="rentalPrice"
+          placeholder="Enter the Rental Price"
+          required
+        />
+      </div>
+
+      <!-- Image input -->
+      <div class="form-outline mb-4">
+        <label class="form-label custom-label" for="image">Image URL</label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="car.image"
+          name="image"
+          placeholder="Enter the Car Image URL"
+          required
+        />
+      </div>
+
+      <!-- Submit button -->
+      <div class="d-flex justify-content-center">
+        <button type="submit" class="btn btn-primary btn-block mb-4">
+          {{ isEditing ? "Update Car" : "Add Car" }}
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

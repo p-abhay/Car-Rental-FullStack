@@ -1,0 +1,98 @@
+<form (ngSubmit)="submitBookingForm()" #bookingForm="ngForm">
+  <h2 class="text-center">Booking Details</h2>
+  <div class="row justify-content-center">
+    <div class="col-md-3">
+      <!-- User Details -->
+      <button class="btn btn-secondary" routerLink="/dashboard">Back</button>
+      <div class="form-outline mb-4">
+        <label class="form-label" for="fullName">Full Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="fullName"
+          name="fullName"
+          [(ngModel)]="bookingData.fullName"
+          required
+          readonly
+        />
+      </div>
+
+      <!-- Car Details (Prefilled) -->
+      <div class="form-outline mb-4">
+        <label class="form-label" for="carMaker">Car Maker</label>
+        <input
+          type="text"
+          class="form-control"
+          id="carMaker"
+          name="carMaker"
+          [(ngModel)]="bookingData.carMaker"
+          readonly
+        />
+      </div>
+      <div class="form-outline mb-4">
+        <label class="form-label" for="carModel">Car Model</label>
+        <input
+          type="text"
+          class="form-control"
+          id="carModel"
+          name="carModel"
+          [(ngModel)]="bookingData.carModel"
+          readonly
+        />
+      </div>
+      <div class="form-outline mb-4">
+        <label class="form-label" for="pricePerDay">Price Per Day (₹)</label>
+        <input
+          type="number"
+          class="form-control"
+          id="pricePerDay"
+          name="pricePerDay"
+          [(ngModel)]="bookingData.pricePerDay"
+          readonly
+        />
+      </div>
+
+      <!-- Duration and Total Price Calculation -->
+      <div class="form-outline mb-4">
+        <label class="form-label" for="duration">Duration (Days)</label>
+        <input
+          type="number"
+          class="form-control"
+          id="duration"
+          name="duration"
+          [(ngModel)]="bookingData.duration"
+          (input)="calculateTotalPrice()"
+          required
+          [readonly]="agreeTerms"
+        />
+      </div>
+      <div class="form-outline mb-4">
+        <label class="form-label" for="totalPrice">Total Price (₹)</label>
+        <input
+          type="number"
+          class="form-control"
+          id="totalPrice"
+          name="totalPrice"
+          [(ngModel)]="bookingData.totalPrice"
+          readonly
+        />
+      </div>
+      <input
+        type="checkbox"
+        name="agreeTerms"
+        id="agreeTerms"
+        [(ngModel)]="agreeTerms"
+      /><label>I agree the terms and conditions</label>
+      <!-- Submit Button -->
+      <div class="d-flex justify-content-center">
+        <button
+          type="submit"
+          class="btn btn-primary btn-block mb-4"
+          [disabled]="!agreeTerms"
+        >
+          {{ this.editStatus ? "Update" : "Book" }}
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

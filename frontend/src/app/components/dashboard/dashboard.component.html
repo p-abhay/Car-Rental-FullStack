@@ -1,0 +1,133 @@
+<!-- <div class="container mt-4">
+  <h2>List of Cars</h2>
+  <div class="row">
+    <div *ngFor="let car of cars" class="col-md-4 mb-4">
+      <div class="card">
+        <img [src]="car.image" class="card-img-top" alt="Car Image" />
+        <div class="card-body">
+          <h5 class="card-title">{{ car.maker }} {{ car.model }}</h5>
+          <p class="card-text">
+            Status:
+            <span
+              [class]="
+                'badge bg-' + (car.availabilityStatus ? 'success' : 'danger')
+              "
+            >
+              {{ car.availabilityStatus ? "Available" : "Not Available" }}
+            </span>
+          </p>
+          <p class="card-text">
+            Rental Price: ₹{{ car.rentalPrice | number : "1.2-2" }} /day
+          </p>
+          <button
+            [class]="
+              'btn ' + (car.availabilityStatus ? 'btn-success' : 'btn-danger')
+            "
+          >
+            {{ car.availabilityStatus ? "Book" : "Not Available" }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="cars.length === 0" class="alert alert-info mt-3">
+    No cars are available at the moment.
+  </div>
+</div> -->
+<div class="container car-search">
+  <h4 class="text-center">Car Search</h4>
+  <div class="form-group">
+    <input
+      type="text"
+      id="maker"
+      [(ngModel)]="searchParams.maker"
+      name="maker"
+      class="form-control mx-auto my-2"
+      style="width: 70%"
+      placeholder="Enter Maker like Honda,Hyundai,etc."
+      (ngModelChange)="filterCars()"
+    />
+  </div>
+  <div class="form-group">
+    <input
+      type="text"
+      id="model"
+      [(ngModel)]="searchParams.model"
+      name="model"
+      class="form-control mx-auto my-2"
+      style="width: 70%"
+      placeholder="Enter Model like City,Creta,etc."
+      (ngModelChange)="filterCars()"
+    />
+  </div>
+  <div class="form-group">
+    <input
+      type="number"
+      id="rentalPrice"
+      [(ngModel)]="searchParams.rentalPrice"
+      name="rentalPrice"
+      class="form-control mx-auto my-2"
+      style="width: 70%"
+      placeholder="Enter Maximum price like 1000,etc."
+      (ngModelChange)="filterCars()"
+    />
+  </div>
+</div>
+
+<div class="container mt-4">
+  <h2 class="text-center">Available Cars({{ filteredCars.length }})</h2>
+  <div id="open-loading" *ngIf="loading">
+    <ion-progress-bar type="indeterminate"></ion-progress-bar>
+  </div>
+  <div class="row">
+    <div *ngFor="let car of filteredCars" class="col-md-4 mb-4">
+      <div class="card">
+        <img [src]="car.image" class="card-img-top" alt="Car Image" />
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center">
+            <h5 class="card-title text-truncate">
+              {{ car.maker }} {{ car.model }}
+            </h5>
+            <button
+              *ngIf="isAdmin || this.userAuthService.isAdmin()"
+              [class]="'btn ' + 'btn-primary'"
+              [routerLink]="['update-car-form', car.id]"
+            >
+              Edit
+            </button>
+            <button
+              *ngIf="isAdmin || this.userAuthService.isAdmin()"
+              [class]="'btn ' + 'btn-danger'"
+              (click)="deleteCar(car.id)"
+            >
+              Delete
+            </button>
+            <button
+              class="btn btn-success"
+              [disabled]="!car.availabilityStatus"
+              [routerLink]="['book', car.id]"
+            >
+              Book
+            </button>
+          </div>
+          <p class="card-text">
+            Status:
+            <span
+              [class]="
+                'badge bg-' + (car.availabilityStatus ? 'success' : 'danger')
+              "
+            >
+              {{ car.availabilityStatus ? "Available" : "Not Available" }}
+            </span>
+          </p>
+          <p class="card-text">
+            Rental Price: ₹{{ car.rentalPrice | number : "1.2-2" }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="cars.length === 0" class="alert alert-info mt-3">
+    No cars are available at the moment.
+  </div>
+</div>

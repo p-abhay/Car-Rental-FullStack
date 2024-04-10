@@ -1,0 +1,65 @@
+<div class="container mt-4">
+  <h1>My Rentals</h1>
+  <button class="btn btn-secondary" routerLink="/dashboard">Back</button>
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th>Booking ID</th>
+        <th>Car ID</th>
+        <th>Duration (days)</th>
+        <th>Total Price</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let booking of bookings">
+        <td>{{ booking.id }}</td>
+        <td>{{ booking.carId }}</td>
+        <td>{{ booking.duration }}</td>
+        <td>₹{{ booking.totalPrice }}</td>
+        <td>{{ booking.startDate }}</td>
+        <td>{{ booking.endDate }}</td>
+        <td>
+          <span
+            [ngClass]="{
+              'text-success': booking.status === BookingStatus.ReturnSuccess,
+              'text-warning': booking.status === BookingStatus.ReturnRequested,
+              'text-primary': booking.status === BookingStatus.Booked
+            }"
+          >
+            {{ BookingStatus[booking.status] }}
+          </span>
+          <span *ngIf="booking.status === BookingStatus.Booked"
+            ><button class="btn btn-danger" (click)="returnCar(booking.id)">
+              Return
+            </button></span
+          >
+          <span
+            *ngIf="booking.status === BookingStatus.ReturnRequested && isAdmin"
+            ><button
+              class="btn btn-danger"
+              (click)="acceptReturnCar(booking.id)"
+            >
+              Accept Return
+            </button></span
+          >
+        </td>
+        <td *ngIf="isAdmin">
+          <button
+            class="btn btn-secondary"
+            [routerLink]="['update-booking', booking.id]"
+          >
+            Edit
+          </button>
+        </td>
+        <td *ngIf="isAdmin">
+          <button class="btn btn-danger" (click)="deleteCarBooking(booking.id)">
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
